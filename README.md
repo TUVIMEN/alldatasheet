@@ -6,5 +6,5 @@ A shell script for searching on alldatasheet.
  - [hgrep](https://github.com/TUVIMEN/hgrep)
  - xclip
 
-## Instalation
+## Installation
     install -m 755 alldatasheet /usr/bin
