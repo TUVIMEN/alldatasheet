@@ -1,9 +1,10 @@
 # alldatasheet
+
 A shell script for searching on alldatasheet.
 
 ## Requirements
 
- - [hgrep](https://github.com/TUVIMEN/hgrep)
+ - [reliq](https://github.com/TUVIMEN/reliq)
  - xclip
 
 ## Installation

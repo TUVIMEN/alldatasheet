@@ -63,10 +63,10 @@ trap 'rm "$t1" "$t_size" "$t_name" "$t_link" "$t_desc" "$t_man"' EXIT
 
 LINK="$DOMAIN/view_datasheet.jsp?sSearchword=$SEARCHP&sPage=$PAGE&sField=0"
 ucurl "$LINK" > "$t1"
-hgrep 'a +target="_blank" +href=".*/datasheet-pdf/pdf/.*" @m"<b>" | "https:%(href)a\n"' "$t1" | sed 's,/pdf/,/download/,' > "$t_link"
-hgrep 'a +target="_blank" +href=".*/datasheet-pdf/pdf/.*" | "https:%(href)a\n"; b | "%i\n"' "$t1" > "$t_name"
-hgrep 'img +class="abclogoyo" | "%(alt)a\n"' "$t1" > "$t_man"
-hgrep 'span +class="mobileblock" | "%i\n"' "$t1" > "$t_size"
+reliq 'a +target="_blank" href=a>"/datasheet-pdf/pdf/" m@"<b>" | "https:%(href)v\n" / sed "s,/pdf/,/download/,"' "$t1" > "$t_link"
+reliq 'a +target="_blank" href=a>"/datasheet-pdf/pdf/" | "https:%(href)v\n"; b | "%i\n"' "$t1" > "$t_name"
+reliq 'img +class="abclogoyo" | "%(alt)v\n"' "$t1" > "$t_man"
+reliq 'span +class="mobileblock" | "%i\n"' "$t1" > "$t_size"
 grep -E '^<td>(<font.*</font>(&nbsp;){3}|(&nbsp;){3})' "$t1" | sed '/<font /s/.*;/\[old\] /; s/.*;//' > "$t_desc"
 
 color_lines() {
@@ -85,4 +85,4 @@ fi
 paste -d "$DELIM" "$t_name" "$t_size" "$t_desc" "$t_man" | nl
 printf 'num> '
 read -r NUMBER
-[ "$NUMBER" -gt 0 ] && ucurl -g -s -L "$(sed "${NUMBER}q;d" "$t_link")" | hgrep 'a +target="_blank" +href=".*/datasheet\.pdf" | "'"$DOMAIN"'%(href)a\n"' | tee /dev/stderr | tr -d '\n' | xclip -sel clip
+[ "$NUMBER" -gt 0 ] && ucurl -g -s -L "$(sed "${NUMBER}q;d" "$t_link")" | reliq 'a +target="_blank" +href=e>"/datasheet.pdf" | "'"$DOMAIN"'%(href)v\n"' | tee /dev/stderr | tr -d '\n' | xclip -sel clip
