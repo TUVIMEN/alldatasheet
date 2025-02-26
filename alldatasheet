@@ -63,7 +63,7 @@ trap 'rm "$t1" "$t_size" "$t_name" "$t_link" "$t_desc" "$t_man"' EXIT
 
 LINK="$DOMAIN/view_datasheet.jsp?sSearchword=$SEARCHP&sPage=$PAGE&sField=0"
 ucurl "$LINK" > "$t1"
-reliq 'a +target="_blank" href=a>"/datasheet-pdf/pdf/" m@"<b>" | "https:%(href)v\n" / sed "s,/pdf/,/download/,"' "$t1" > "$t_link"
+reliq 'a +target="_blank" href=a>"/datasheet-pdf/pdf/" i@"<b>" | "https:%(href)v\n" / sed "s,/pdf/,/download/,"' "$t1" > "$t_link"
 reliq 'a +target="_blank" href=a>"/datasheet-pdf/pdf/" | "https:%(href)v\n"; b | "%i\n"' "$t1" > "$t_name"
 reliq 'img +class="abclogoyo" | "%(alt)v\n"' "$t1" > "$t_man"
 reliq 'span +class="mobileblock" | "%i\n"' "$t1" > "$t_size"
