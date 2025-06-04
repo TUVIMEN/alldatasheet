@@ -1,5 +1,5 @@
 #!/bin/sh
-# by Dominik Stanisław Suchora <suchora.dominik7@gmail.com>
+# by Dominik Stanisław Suchora <hexderm@gmail.com>
 # License: GNU GPLv3
 
 PAGE=1
@@ -59,7 +59,7 @@ t_desc=$(mktemp)
 t_name=$(mktemp)
 t_link=$(mktemp)
 t_man=$(mktemp)
-trap 'rm "$t1" "$t_size" "$t_name" "$t_link" "$t_desc" "$t_man"' EXIT
+trap 'rm "$t1" "$t_size" "$t_name" "$t_link" "$t_desc" "$t_man"' HUP INT QUIT TERM PWR EXIT RETURN
 
 LINK="$DOMAIN/view_datasheet.jsp?sSearchword=$SEARCHP&sPage=$PAGE&sField=0"
 ucurl "$LINK" > "$t1"
